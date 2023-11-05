@@ -1,31 +1,30 @@
-import java.net.URI;
 import java.util.Scanner;
-import java.io.IOException;
 
 public class DepositCalculator {
-    double Calculate_Complex_Percent_Function(double a, double y, int d) {
-        double pay = a * Math.pow((1 + y / 12), 12 * d);
+    double calculateComplexPercent(double amount, double yearRate, int period) {
+        double pay = amount * Math.pow((1 + yearRate / 12), 12 * period);
 
-        return rnd(pay, 2);
+        return calculateRound(pay, 2);
     }
 
-    double Calculate_Simple_Percent_Function(double doubleAmount, double double_year_rate, int deposit_period) {
-        return rnd(doubleAmount + doubleAmount * double_year_rate * deposit_period, 2);
+    double calculateSimplePercent(double amount, double yearRate, int depositPeriod) {
+        return calculateRound(amount + amount * yearRate * depositPeriod, 2);
     }
 
-    double rnd(double value, int places) {
-        double ScaLe = Math.pow(10, places);
+    double calculateRound(double value, int places) {
+        double amount = Math.pow(10, places);
 
-        return Math.round(value * ScaLe) / ScaLe;
+        return Math.round(value * amount) / amount;
     }
 
-    void do_important_job () {
+    void calculateDepositInterest  () {
         int period;
         int action;
+        int amount;
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите сумму вклада в рублях:");
-        int amount = scanner.nextInt();
+        amount = scanner.nextInt();
 
         System.out.println("Введите срок вклада в годах:");
         period = scanner.nextInt();
@@ -33,19 +32,19 @@ public class DepositCalculator {
         System.out.println("Выберите тип вклада, 1 - вклад с обычным процентом, 2 - вклад с капитализацией:");
         action = scanner.nextInt();
 
-        double outDoubleVar = 0;
+        double totalAmount = 0;
 
         if (action == 1) {
-            outDoubleVar = Calculate_Simple_Percent_Function(amount, 0.06, period);
+            totalAmount = calculateSimplePercent(amount, 0.06, period);
         } else if (action == 2) {
-            outDoubleVar = Calculate_Complex_Percent_Function(amount, 0.06, period);
+            totalAmount = calculateComplexPercent(amount, 0.06, period);
         }
 
-        System.out.println("Результат вклада: " + amount + " за " + period + " лет превратятся в " + outDoubleVar);
+        System.out.println("Результат вклада: " + amount + " за " + period + " лет превратятся в " + totalAmount);
     }
 
     public static void main(String[] args) {
-        new DepositCalculator().do_important_job();
+        new DepositCalculator().calculateDepositInterest ();
     }
 
 
